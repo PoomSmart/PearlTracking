@@ -1,4 +1,3 @@
-#import "../PS.h"
 #import "Header.h"
 
 BOOL (*AXIsInternalInstall)(void);
@@ -19,7 +18,8 @@ BOOL hook = NO;
 %hook AXSettings
 
 - (BOOL)assistiveTouchInternalOnlyPearlTrackingEnabled {
-	return [[self _valueForPreferenceKey:key] boolValue];
+	id value = [self respondsToSelector:@selector(valueForPreferenceKey:)] ? [self valueForPreferenceKey:key] : [self _valueForPreferenceKey:key];
+	return [value boolValue];
 }
 
 %end
@@ -30,6 +30,6 @@ BOOL hook = NO;
 
 %ctor {
 	MSImageRef ref = MSGetImageByName("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities");
-	AXIsInternalInstall = (BOOL (*)(void))_PSFindSymbolCallable(ref, "_AXIsInternalInstall");
+	AXIsInternalInstall = (BOOL (*)(void))MSFindSymbol(ref, "_AXIsInternalInstall");
 	%init;
 }

@@ -1,6 +1,6 @@
 Package: com.ps.pearltracking
 Name: PearlTracking
-Depends: mobilesubstrate, firmware (>= 13.0), com.opa334.ccsupport
+Depends: mobilesubstrate, firmware (>= 14.0), com.opa334.ccsupport
 Version: 0.0.1
 Architecture: iphoneos-arm
 Description: Move the mouse cursor with your face.
